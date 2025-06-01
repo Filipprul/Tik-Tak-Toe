@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8-Bit TIC TAC TOE</title>
+    <link rel="stylesheet" href="game.css">
+    <script src="game.js" defer></script>
+</head>
+<body>
+
+    <!-- Login -->
+    <div id="login-screen" class="screen">
+        <h1>8-Bit TIC TAC TOE</h1>
+        <label for="username">Benutzername:</label>
+        <input type="text" id="username" placeholder="Benutzername">
+        <br><br>
+        <button onclick="login()">Start</button>
+    </div>
+
+    <!-- Menü -->
+    <div id="menu-screen" class="screen" style="display: none;">
+        <h2>Willkommen, <span id="display-name"></span>!</h2>
+        <div class="menu-buttons">
+            <button onclick="startGame('pvp')">You vs Player</button>
+            <button onclick="startGame('pve')">You vs Bot (Easy)</button>
+            <button onclick="startGame('pve-hard')">You vs Bot (Imposible)</button>
+        </div>
+    </div>
+
+    <!-- Spiel -->
+    <div id="game-screen" class="screen" style="display: none;">
+        <h2 id="status-text">Status</h2>
+
+        <div id="scoreboard">
+            <p>Du: <span id="score-player">0</span></p>
+            <p>Gegner: <span id="score-opponent">0</span></p>
+        </div>
+
+        <div id="board" class="board"></div>
+
+        <div class="game-buttons">
+            <button onclick="restartGame()">Neustart</button>
+            <button onclick="backToMenu()">Menü</button>
+        </div>
+    </div>
+
+</body>
+</html>

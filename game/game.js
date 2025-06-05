@@ -20,6 +20,7 @@ let score = {
     opponent: 0
 };
 
+// Anmeldung
 function login() {
     const input = document.getElementById("username");
     if (input.value.trim() === "") {
@@ -29,6 +30,10 @@ function login() {
     username = input.value.trim();
     displayName.textContent = username;
     switchScreen(loginScreen, menuScreen);
+
+    // Speicher Benutzername
+    localStorage.setItem("username", username);
+    showgamesection(username);
 }
 
 function switchScreen(from, to) {
@@ -110,9 +115,11 @@ function updateScore(player) {
     if (player === "X") {
         score.player++;
         scoreboard.player.textContent = score.player;
+        localStorage.setItem(`score_${username}`, score.player);
     } else {
         score.opponent++;
         scoreboard.opponent.textContent = score.opponent;
+        localStorage.setItem(`score_${username}_opponent`, score.opponent);
     }
 }
 
@@ -173,4 +180,26 @@ function minimax(newBoard, depth, isMaximizing) {
         }
         return best;
     }
+}
+
+// Auto-Login funktion, wenn der Benutzername im LocalStorage gespeichert ist.
+window.onload = function() {
+    username = localStorage.getItem("username");
+    if (username){
+        showgamesection(username);
+    }
+};
+
+// Gibt Benutzername und Score aus welche gespeichert wurden
+function showgamesection(name) {
+    username = name;
+    displayName.textContent = username;
+
+    score.player = parseInt(localStorage.getItem(`score_${username}`)) || 0;
+    score.opponent = parseInt(localStorage.getItem(`score_${username}_opponent`)) || 0;
+
+    scoreboard.player.textContent = score.player;
+    scoreboard.opponent.textContent = score.opponent;
+
+    switchScreen(loginScreen, menuScreen);
 }

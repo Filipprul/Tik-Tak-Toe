@@ -33,7 +33,7 @@ function login() {
 
 function switchScreen(from, to) {
     from.style.display = "none";
-    to.style.display = "block";
+    to.style.display = "flex";
 }
 
 function startGame(mode) {
@@ -41,6 +41,7 @@ function startGame(mode) {
     currentPlayer = "X";
     board = ["", "", "", "", "", "", "", "", ""];
     gameActive = true;
+    score = { player: 0, opponent: 0 };
     updateStatus();
     renderBoard();
     switchScreen(menuScreen, gameScreen);
@@ -51,6 +52,8 @@ function renderBoard() {
     board.forEach((cell, index) => {
         const div = document.createElement("div");
         div.classList.add("board-cell");
+            if (cell === "X") div.classList.add("x");
+            if (cell === "O") div.classList.add("o");
         div.textContent = cell;
         div.addEventListener("click", () => handleCellClick(index));
         boardElement.appendChild(div);
@@ -174,3 +177,4 @@ function minimax(newBoard, depth, isMaximizing) {
         return best;
     }
 }
+ initializeBoard();

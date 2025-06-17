@@ -1,124 +1,228 @@
-body {
-    font-family: 'Press Start 2P', monospace, sans-serif;
-    background-color: #1b1b1b;
-    color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-}
+:root {
+            --primary-color: #0f0;
+            --secondary-color: #000;
+            --bg-color: #111;
+            --x-color: #0ff;
+            --o-color: #f0f;
+            --cell-size: min(25vw, 100px);
+            --font-size-normal: min(4vw, 16px);
+            --font-size-large: min(6vw, 24px);
+            --font-size-xlarge: min(8vw, 32px);
+            --font-size-xxlarge: min(10vw, 48px);
+            --padding-small: min(2vw, 10px);
+            --padding-medium: min(3vw, 15px);
+            --padding-large: min(4vw, 20px);
+        }
 
-h1, h2 {
-    color: #ffcc00;
-    margin-bottom: 20px;
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-button {
-    background-color: #ffcc00;
-    border: none;
-    color: #1b1b1b;
-    padding: 12px 24px;
-    font-size: 1rem;
-    font-family: inherit;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-}
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            text-transform: uppercase;
+            font-size: var(--font-size-normal);
+            /* Новый фоновый рисунок в стиле 8-bit */
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23000"/><path d="M20,20 L80,20 L80,80 L20,80 Z" fill="none" stroke="%2300ff00" stroke-width="2" opacity="0.3"/><path d="M30,30 L70,30 L70,70 L30,70 Z" fill="none" stroke="%2300ff00" stroke-width="1" opacity="0.2"/><circle cx="50" cy="50" r="15" fill="none" stroke="%2300ff00" stroke-width="1" opacity="0.1"/><rect x="45" y="20" width="10" height="10" fill="%2300ff00" opacity="0.1"/><rect x="45" y="70" width="10" height="10" fill="%2300ff00" opacity="0.1"/><rect x="20" y="45" width="10" height="10" fill="%2300ff00" opacity="0.1"/><rect x="70" y="45" width="10" height="10" fill="%2300ff00" opacity="0.1"/></svg>');
+            background-size: 200px 200px;
+            padding: var(--padding-medium);
+        }
+        
+       
+        .screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: var(--padding-medium);
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        
+        #login-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        #menu-screen, #game-screen {
+            display: none;
+        }
+        
+        h1, h2 {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+            letter-spacing: 3px;
+            margin-bottom: var(--padding-large);
+            text-align: center;
+            word-break: break-word;
+        }
+        
+        h1 {
+            font-size: var(--font-size-xxlarge);
+        }
+        
+        h2 {
+            font-size: var(--font-size-xlarge);
+        }
+        
+        label {
+            margin-bottom: var(--padding-small);
+            letter-spacing: 1px;
+            font-size: var(--font-size-normal);
+        }
+        
+        input {
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: var(--padding-small);
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            margin-bottom: var(--padding-large);
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            font-size: var(--font-size-normal);
+        }
+        
+        input::placeholder {
+            color: var(--primary-color);
+            opacity: 0.5;
+        }
+        
+        button {
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: var(--padding-small) var(--padding-medium);
+            margin: var(--padding-small) 0;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+            font-size: var(--font-size-normal);
+            width: 100%;
+            max-width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        button:hover {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+        
+        .menu-buttons, .game-buttons {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 300px;
+            align-items: center;
+        }
+        
+        #board {
+            display: grid;
+            grid-template-columns: repeat(3, var(--cell-size));
+            grid-template-rows: repeat(3, var(--cell-size));
+            gap: 5px;
+            margin: var(--padding-large) 0;
+            width: 100%;
+            max-width: calc(var(--cell-size) * 3 + 10px);
+        }
+        
+        .board-cell {
+            background-color: var(--bg-color);
+            border: 1px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: calc(var(--cell-size) * 0.6);
+            cursor: pointer;
+            transition: all 0.3s;
+            aspect-ratio: 1;
+        }
+        
+        .board-cell:hover {
+            background-color: #222;
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+        
+        .board-cell.x {
+            color: var(--x-color);
+            text-shadow: 0 0 5px var(--x-color);
+        }
+        
+        .board-cell.o {
+            color: var(--o-color);
+            text-shadow: 0 0 5px var(--o-color);
+        }
+        
+        #scoreboard {
+            display: flex;
+            gap: var(--padding-medium);
+            margin-bottom: var(--padding-large);
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        #scoreboard p {
+            margin: 0;
+            padding: var(--padding-small) var(--padding-medium);
+            background-color: var(--bg-color);
+            border: 1px solid var(--primary-color);
+            font-size: var(--font-size-normal);
+            white-space: nowrap;
+        }
+        
+        #status-text {
+            min-height: calc(var(--font-size-normal) * 1.5);
+            margin-bottom: var(--padding-large);
+            letter-spacing: 1px;
+            text-align: center;
+            width: 100%;
+            font-size: var(--font-size-large);
+        }
 
-button:hover {
-    background-color: #ffe066;
-    transform: scale(1.05);
-}
-
-input {
-    padding: 10px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 6px;
-    width: 200px;
-    font-family: inherit;
-}
-
-.screen {
-    display: none;
-    padding: 40px 20px;
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-#login-screen {
-    display: block; 
-}
-
-.menu-buttons button {
-    display: block;
-    width: 100%;
-    margin: 10px 0;
-}
-
-#status-text {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-}
-
-#scoreboard {
-    margin-bottom: 20px;
-}
-
-#scoreboard p {
-    font-size: 1rem;
-    margin: 5px 0;
-}
-
-#board {
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    gap: 5px;
-    justify-content: center;
-    margin: 0 auto 30px;
-}
-
-.board-cell {
-    width: 100px;
-    height: 100px;
-    background-color: #333;
-    border: 3px solid #ffcc00;
-    font-size: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffcc00;
-    cursor: pointer;
-    user-select: none;
-}
-
-.board-cell:hover {
-    background-color: #444;
-}
-
-.game-buttons button {
-    margin: 10px;
-}
-
-@media (max-width: 500px) {
-    #board {
-        grid-template-columns: repeat(3, 80px);
-    }
-
-    .board-cell {
-        width: 80px;
-        height: 80px;
-        font-size: 2rem;
-    }
-
-    button {
-        width: 100%;
-        font-size: 0.9rem;
-    }
-
-    input {
-        width: 90%;
-    }
-}
-
-/* Retro-Font von Google Fonts */
+        @media (orientation: landscape) and (max-height: 500px) {
+            :root {
+                --cell-size: min(15vh, 100px);
+            }
+            
+            body {
+                padding: var(--padding-small);
+            }
+            
+            h1 {
+                font-size: min(5vh, var(--font-size-xxlarge));
+                margin-bottom: var(--padding-small);
+            }
+            
+            h2 {
+                font-size: min(4vh, var(--font-size-xlarge));
+                margin-bottom: var(--padding-small);
+            }
+            
+            #board {
+                margin: var(--padding-small) 0;
+            }
+        }
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');

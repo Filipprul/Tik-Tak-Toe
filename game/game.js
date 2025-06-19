@@ -46,7 +46,6 @@ function startGame(mode) {
     currentPlayer = "X";
     board = ["", "", "", "", "", "", "", "", ""];
     gameActive = true;
-    score = { player: 0, opponent: 0 };
     updateStatus();
     renderBoard();
     switchScreen(menuScreen, gameScreen);
@@ -206,3 +205,22 @@ function showgamesection(name) {
 
     switchScreen(loginScreen, menuScreen);
 }
+
+// Logout Funktion
+function logout() {
+       localStorage.removeItem("username");
+    username = "";
+    score = { player: 0, opponent: 0 }; // falls nötig
+    switchScreen(menuScreen, loginScreen);
+    document.getElementById("username").value = ""; 
+};
+
+// Zurücksetzen des Scores
+function resetScore() {
+    score.player = 0;
+    score.opponent = 0;
+    localStorage.removeItem(`score_${username}`);
+    localStorage.removeItem(`score_${username}_opponent`);
+    scoreboard.player.textContent = "0";
+    scoreboard.opponent.textContent = "0";
+};

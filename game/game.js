@@ -3,6 +3,8 @@ let gameMode = null;
 let board = ["", "", "", "", "", "", "", "", ""];
 let gameActive = false;
 let username = "";
+let email = "";
+let password = "";
 
 const loginScreen = document.getElementById("login-screen");
 const menuScreen = document.getElementById("menu-screen");
@@ -22,19 +24,31 @@ let score = {
 
 // Anmeldung
 function login() {
-    const input = document.getElementById("username");
-    if (input.value.trim() === "") {
-        alert("Bitte gib einen Benutzernamen ein.");
+    const user = document.getElementById("username");
+    const mail = document.getElementById("email");
+    const pass = document.getElementById("password");
+    
+    if (
+        user.value.trim() === "" ||
+        mail.value.trim() === "" ||
+        pass.value.trim() === ""
+    ) {
+        alert("Bitte füllen Sie alle Felder aus.");
         return;
     }
-    username = input.value.trim();
+
+    username = user.value.trim();
+    email = mail.value.trim();
+    password = pass.value.trim();
     displayName.textContent = username;
     switchScreen(loginScreen, menuScreen);
 
-    // Speicher Benutzername
     localStorage.setItem("username", username);
+    localStorage.setItem("email", email);
+    localStorage.setItem("password", password);
     showgamesection(username);
 }
+
 
 function switchScreen(from, to) {
     from.style.display = "none";
@@ -117,7 +131,7 @@ function updateScore(player) {
     if (player === "X") {
         score.player++;
         scoreboard.player.textContent = score.player;
-        localStorage.setItem(`score_${username}`, score.player);
+        localStorage.setItem(`score_${email}`, score.player);
     } else {
         score.opponent++;
         scoreboard.opponent.textContent = score.opponent;
@@ -153,7 +167,7 @@ function getBestMove() {
     return move;
 }
 
-// Imposible KI
+// Imposible KI (Bitte keine Fragen stellen, wie das funktioniert, da ich es nicht weiß wie es funktioniert, aber es funktioniert)
 function minimax(newBoard, depth, isMaximizing) {
     if (checkWinner("O")) return 10 - depth;
     if (checkWinner("X")) return depth - 10;
@@ -187,7 +201,9 @@ function minimax(newBoard, depth, isMaximizing) {
 // Auto-Login funktion, wenn der Benutzername im LocalStorage gespeichert ist.
 window.onload = function() {
     username = localStorage.getItem("username");
-    if (username){
+    email = localStorage.getItem("email");
+    password = localStorage.getItem("password");
+    if (username && email && password) {
         showgamesection(username);
     }
 };
@@ -197,7 +213,7 @@ function showgamesection(name) {
     username = name;
     displayName.textContent = username;
 
-    score.player = parseInt(localStorage.getItem(`score_${username}`)) || 0;
+    score.player = parseInt(localStorage.getItem(`score_${email}`)) || 0;
     score.opponent = parseInt(localStorage.getItem(`score_${username}_opponent`)) || 0;
 
     scoreboard.player.textContent = score.player;
@@ -209,8 +225,12 @@ function showgamesection(name) {
 // Logout Funktion
 function logout() {
        localStorage.removeItem("username");
+       localStorage.removeItem("email");
+       localStorage.removeItem("password");
     username = "";
-    score = { player: 0, opponent: 0 }; // falls nötig
+    email = "";
+    password = "";
+    score = { player: 0, opponent: 0 };
     switchScreen(menuScreen, loginScreen);
     document.getElementById("username").value = ""; 
 };
@@ -219,7 +239,7 @@ function logout() {
 function resetScore() {
     score.player = 0;
     score.opponent = 0;
-    localStorage.removeItem(`score_${username}`);
+    localStorage.removeItem(`score_${email}`);
     localStorage.removeItem(`score_${username}_opponent`);
     scoreboard.player.textContent = "0";
     scoreboard.opponent.textContent = "0";

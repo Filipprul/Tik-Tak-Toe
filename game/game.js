@@ -15,12 +15,23 @@ const scoreboard = {
     player: document.getElementById("score-player"),
     opponent: document.getElementById("score-opponent")
 };
+const scoretable = {
+    win: document.getElementById("score-win"),
+    lose: document.getElementById("score-lose"),
+    wl: document.getElementById("score-wl")
+}
 const boardElement = document.getElementById("board");
 
 let score = {
     player: 0,
     opponent: 0
 };
+
+let stats = {
+    wins: 0,
+    losses: 0,
+    wl: 0
+}
 
 // Anmeldung
 function login() {
@@ -127,27 +138,47 @@ function checkWinner(player) {
     );
 }
 
+// Aktualisiert den Score für den Spieler oder Gegner.
 function updateScore(player) {
     if (player === "X") {
         score.player++;
+        stats.wins++;
+        scoretable.win.textContent = stats.wins;
         scoreboard.player.textContent = score.player;
-        localStorage.setItem(`score_${email}`, score.player);
+        localStorage.setItem(`stats_${email}_wins`, stats.wins);
+        localStorage.setItem(`score_${email}_player`, score.player);
     } else {
+        stats.losses++;
         score.opponent++;
+         scoretable.lose.textContent = stats.losses;
         scoreboard.opponent.textContent = score.opponent;
-        localStorage.setItem(`score_${username}_opponent`, score.opponent);
+        localStorage.setItem(`stats_${email}_losses`, stats.losses);
+        localStorage.setItem(`score_${email}_opponent`, score.opponent);
+    }
+
+    if (stats.losses === 0 && stats.wins > 0) {
+        stats.wl = stats.wins;
+        scoretable.wl.textContent = stats.wl;
+        localStorage.setItem(`stats_${email}_wl`, stats.wl);
+    } else if (stats.losses > 0) {
+        stats.wl = (stats.wins / stats.losses).toFixed(2);
+        scoretable.wl.textContent = stats.wl;
+        localStorage.setItem(`stats_${email}_wl`, stats.wl);
     }
 }
 
+// Spiel wiederholen.
 function restartGame() {
     startGame(gameMode);
 }
 
+// Zurück zum Menü
 function backToMenu() {
     gameActive = false;
     switchScreen(gameScreen, menuScreen);
 }
 
+// Funktion, um den besten Zug für den Bot zu finden (Minimax-Algorithmus).
 function getBestMove() {
     let bestScore = -Infinity;
     let move;
@@ -208,13 +239,13 @@ window.onload = function() {
     }
 };
 
-// Gibt Benutzername und Score aus welche gespeichert wurden
+// Zeigt den Spielabschnitt an und aktualisiert den Score
 function showgamesection(name) {
     username = name;
     displayName.textContent = username;
 
-    score.player = parseInt(localStorage.getItem(`score_${email}`)) || 0;
-    score.opponent = parseInt(localStorage.getItem(`score_${username}_opponent`)) || 0;
+    score.player = parseInt(localStorage.getItem(`score_${email}_player`)) || 0;
+    score.opponent = parseInt(localStorage.getItem(`score_${email}_opponent`)) || 0;
 
     scoreboard.player.textContent = score.player;
     scoreboard.opponent.textContent = score.opponent;
@@ -224,23 +255,33 @@ function showgamesection(name) {
 
 // Logout Funktion
 function logout() {
-       localStorage.removeItem("username");
-       localStorage.removeItem("email");
-       localStorage.removeItem("password");
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
     username = "";
     email = "";
     password = "";
-    score = { player: 0, opponent: 0 };
     switchScreen(menuScreen, loginScreen);
     document.getElementById("username").value = ""; 
+    document.getElementById("email").value = ""; 
+    document.getElementById("password").value = ""; 
 };
 
-// Zurücksetzen des Scores
+// Zurücksetzen des Scores und Statistiken 
 function resetScore() {
     score.player = 0;
     score.opponent = 0;
-    localStorage.removeItem(`score_${email}`);
-    localStorage.removeItem(`score_${username}_opponent`);
+    stats.wins = 0;
+    stats.losses = 0;
+    stats.wl = 0;
+    localStorage.removeItem(`stats_${email}_wins`);
+    localStorage.removeItem(`stats_${email}_losses`);
+    localStorage.removeItem(`stats_${email}_wl`);
+    localStorage.removeItem(`score_${email}_player`);
+    localStorage.removeItem(`score_${email}_opponent`);
     scoreboard.player.textContent = "0";
     scoreboard.opponent.textContent = "0";
+    scoretable.wins.textContent = "0";
+    scoretable.losses.textContent = "0";
+    scoretable.wl.textContent = "0";
 };

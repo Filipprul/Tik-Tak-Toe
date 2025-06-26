@@ -23,6 +23,21 @@
 
     <!-- Menü -->
     <div id="menu-screen" class="screen" style="display: none;">
+        <div id="score-screen">
+            <h2>Highscores</h2>
+            <table id="score-table">
+                <thead>
+                    <tr>
+                        <th>Wins: <span id="score-win">0</span></th>
+                        <th>Loses: <span id="score-lose">0</span></th>
+                        <th>W/L: <span id="score-wl">0</span></th>
+                    </tr>
+                </thead>
+                <tbody id="score-list">
+                    <!-- Highscores werden hier dynamisch eingefügt -->
+                </tbody>
+            </table>
+        </div>
         <h2>Willkommen, <span id="display-name"></span>!</h2>
         <div class="menu-buttons">
             <button onclick="startGame('pvp')">You vs Player</button>

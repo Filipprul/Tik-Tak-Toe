@@ -32,7 +32,7 @@ const scoretable = {
 // Dieses Element stellt das tatsächliche Tic-Tac-Toe-Brett in der HTML-Oberfläche dar.
 const boardElement = document.getElementById("board");
 
-// Initialisiert den Score und die Statistiken.
+// Initialisiert den Score.
 let score = {
     player: 0,
     opponent: 0
@@ -78,6 +78,7 @@ function switchScreen(from, to) {
     to.style.display = "flex";
 }
 
+// Diese Funktion startet ein neues Spiel mit dem ausgewählten Spielmodus.
 function startGame(mode) {
     gameMode = mode;
     currentPlayer = "X";
@@ -147,7 +148,7 @@ function handleCellClick(index) {
 
     // Wenn es keinen Gewinner und auch kein Unentschieden gibt, wechselt der Zug zum anderen Spieler.
     } else {
-        currentPlayer = currentPlayer === "X" ? "O" : "X"; // Help
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
         updateStatus();
 
         // Falls der Spielmodus "pvve" ausgewählt ist und der Spieler "O" ist (also der Bot), wird der zug nach 500ms ausgeführt.
@@ -169,7 +170,10 @@ function botMove() {
 
     // ...ansonsten, wird ein zufälliger freier Index ausgewählt.
     } else {
+        // Sortirt das das Board nach freien Zellen.
         const free = board.map((v, i) => v === "" ? i : null).filter(v => v !== null);
+
+        // Wählt zufällig einen freien Index aus.
         index = free[Math.floor(Math.random() * free.length)];
     }
 
@@ -191,9 +195,9 @@ function checkWinner(player) {
         [0,4,8],[2,4,6]          // Diagonale Gewinnmuster
     ];
 
-    //  Diese Zeile prüft, ob mindestens ein dieser Muster (some) vollständig mit dem Symbol des Spielers belegt ist (every).
+    //  Diese Zeilen prüft, ob mindestens ein dieser Muster (some) vollständig mit dem Symbol des Spielers belegt ist (every).
     return winPatterns.some(pattern =>
-        pattern.every(i => board[i] === player) // Help
+        pattern.every(i => board[i] === player) 
     );
 }
 

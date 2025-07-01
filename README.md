@@ -4,15 +4,13 @@ Das Spiel bietet ein futuristisches User Interface mit Einzel- und Mehrspielermo
 
 ## 🕹️ Features
 - 🎮 Klassisches Tic-Tac-Toe für 2 Spieler (PvP)
-- 🤖 PvE-Modus mit einfacher KI (in Entwicklung)
-- 📱 SAO-inspiriertes Menüsystem
-- 🔐 Login-/Anmeldeseite (in Planung)
-- 🧠 KI-Gegner (in Arbeit)
+- 🔐 Login-/Anmeldeseite
+- 🧠 KI-Gegner
 - 🌐 Responsive Design für Desktop und Mobile
 
 ## 🔧 Technologien
 - **Frontend**: HTML5, CSS3, JavaScript
-- **Design**: SAO-UI-Elemente mit Animationen
+- **Design**: 8-Bit
 
 ## 👨‍💻 Team
 - Filipp (Scrum Master, Lead Dev)

@@ -391,7 +391,7 @@ function resetScore() {
     localStorage.removeItem(`score_${email}_opponent`);
     scoreboard.player.textContent = "0";
     scoreboard.opponent.textContent = "0";
-    scoretable.wins.textContent = "0";
-    scoretable.losses.textContent = "0";
+    scoretable.win.textContent = "0";
+    scoretable.lose.textContent = "0";
     scoretable.wl.textContent = "0";
 };

@@ -6,23 +6,33 @@
     <title>8-Bit TIC TAC TOE</title>
     <link rel="stylesheet" href="game.css">
     <script src="game.js" defer></script>
+
+    <!-- Vorabverbindung zu Google Fonts für bessere Ladezeiten -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Import der Retro-Schriftarten -->
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Login -->
     <div id="login-screen" class="screen">
         <h1>8-Bit TIC TAC TOE</h1>
+
+        <!-- Eingabefelder für Benutzername, E-Mail und Passwort -->
         <input type="text" id="username" placeholder="Username">
         <input type="text" id="email" placeholder="Email">
         <input type="password" id="password" placeholder="Passwort">
         <br><br>
+
+        <!-- Login-Button löst login()-Funktion aus -->
         <button onclick="login()">Login</button>
     </div>
 
     <!-- Menü -->
     <div id="menu-screen" class="screen" style="display: none;">
+
+        <!-- Anzeige von Highscores -->
         <div id="score-screen">
             <h2>Highscores</h2>
             <table id="score-table">
@@ -38,7 +48,11 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Willkommensnachricht mit Benutzername -->
         <h2>Willkommen, <span id="display-name"></span>!</h2>
+
+        <!-- Buttons zum Starten verschiedener Spielmodi -->
         <div class="menu-buttons">
             <button onclick="startGame('pvp')">You vs Player</button>
             <button onclick="startGame('pve')">You vs Bot (Easy)</button>
@@ -50,15 +64,20 @@
 
     <!-- Spiel -->
     <div id="game-screen" class="screen" style="display: none;">
+
+         <!-- Anzeige des Spielstatus (z. B. Wer am Zug ist, Sieg, Unentschieden) -->
         <h2 id="status-text">Status</h2>
 
+        <!-- Anzeige der Punktestände von Spieler und Gegner -->
         <div id="scoreboard">
             <p>Du: <span id="score-player">0</span></p>
             <p>Gegner: <span id="score-opponent">0</span></p>
         </div>
 
+        <!-- Hier wird das Spielbrett (3x3 Felder) gerendert -->
         <div id="board" class="board"></div>
 
+        <!-- Buttons zum Neustart oder zurück zum Menü -->
         <div class="game-buttons">
             <button onclick="restartGame()">Neustart</button>
             <button onclick="backToMenu()">Menü</button>

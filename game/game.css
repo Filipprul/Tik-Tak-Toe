@@ -1,3 +1,4 @@
+/* Definiere globale Variablen für Farben, Größen und Abstände */
 :root {
     --primary-color: #0f0;
     --secondary-color: #000;
@@ -14,12 +15,14 @@
     --padding-large: min(4vw, 20px);
 }
 
+/* Setze Box-Modell auf border-box und entferne Standard-Margen/Paddings */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* Grundlegendes Layout und Design für den Body, inkl. Retro-Hintergrundbild */
 body {
     font-family: 'Courier New', monospace;
     background-color: var(--secondary-color);
@@ -40,7 +43,7 @@ body {
     padding: var(--padding-medium);
 }
 
-
+/* Gestalte Overlay-Bildschirme wie Menüs oder Modals */
 .screen {
     position: fixed;
     top: 0;
@@ -59,11 +62,13 @@ body {
     z-index: 1000; 
 }   
 
+/* Layout für Ergebnistabelle */
 #score-table {
     border-collapse: collapse;
     width: 100%;
 }
 
+/* Stil für Tabellenzeilen – als vertikale Flex-Box */
 #score-table tr {
     display: flex;
     flex-direction: column;
@@ -72,6 +77,7 @@ body {
     justify-content: left;
 }
 
+/* Kleines Score-Fenster oben links */
 #score-screen {
     position: absolute;
     top: 10px;
@@ -83,10 +89,12 @@ body {
     z-index: 10;
 }
 
+/* Verstecke Menüs standardmäßig */
 #menu-screen, #game-screen {
     display: none;
 }
 
+/* Allgemeines Titel-Styling mit Neon-Effekt */
 h1, h2 {
     color: var(--primary-color);
     text-shadow: 0 0 10px var(--primary-color);
@@ -96,20 +104,24 @@ h1, h2 {
     word-break: break-word;
 }
 
+/* Größerer Titel (z. B. Spieltitel) */
 h1 {
     font-size: var(--font-size-xxlarge);
 }
 
+/* Etwas kleinerer Titel (z. B. Untertitel) */
 h2 {
     font-size: var(--font-size-xlarge);
 }
 
+/* Beschriftung für Eingabefelder */
 label {
     margin-bottom: var(--padding-small);
     letter-spacing: 1px;
     font-size: var(--font-size-normal);
 }
 
+/* Style für Texteingabefelder */
 input {
     background-color: var(--bg-color);
     color: var(--primary-color);
@@ -124,11 +136,13 @@ input {
     font-size: var(--font-size-normal);
 }
 
+/* Stil für Platzhaltertext in Inputs */
 input::placeholder {
     color: var(--primary-color);
     opacity: 0.5;
 }
 
+/* Stil für Buttons – Retro-Optik mit Hover-Effekt */
 button {
     background-color: var(--bg-color);
     color: var(--primary-color);
@@ -148,12 +162,14 @@ button {
     text-overflow: ellipsis;
 }
 
+/* Hover-Zustand: invertierte Farben + Leuchteffekt */
 button:hover {
     background-color: var(--primary-color);
     color: var(--secondary-color);
     box-shadow: 0 0 10px var(--primary-color);
 }
 
+/* Zentrierte vertikale Button-Gruppen */
 .menu-buttons, .game-buttons {
     display: flex;
     flex-direction: column;
@@ -162,6 +178,7 @@ button:hover {
     align-items: center;
 }
 
+/* Grid-Layout für Spielfeld (3x3 Zellen) */
 #board {
     display: grid;
     grid-template-columns: repeat(3, var(--cell-size));
@@ -172,6 +189,7 @@ button:hover {
     max-width: calc(var(--cell-size) * 3 + 10px);
 }
 
+/* Einzelne Spielfeldzelle mit Hover-Effekt */
 .board-cell {
     background-color: var(--bg-color);
     border: 1px solid var(--primary-color);
@@ -184,21 +202,25 @@ button:hover {
     aspect-ratio: 1;
 }
 
+/* Hover-Effekt für Zellen */
 .board-cell:hover {
     background-color: #222;
     box-shadow: 0 0 10px var(--primary-color);
 }
 
+/* Stil für X-Spieler */
 .board-cell.x {
     color: var(--x-color);
     text-shadow: 0 0 5px var(--x-color);
 }
 
+/* Stil für O-Spieler */
 .board-cell.o {
     color: var(--o-color);
     text-shadow: 0 0 5px var(--o-color);
 }
 
+/* Score-Anzeige unter dem Spielfeld */
 #scoreboard {
     display: flex;
     gap: var(--padding-medium);
@@ -208,6 +230,7 @@ button:hover {
     width: 100%;
 }
 
+/* Einzelne Score-Einträge */
 #scoreboard p {
     margin: 0;
     padding: var(--padding-small) var(--padding-medium);
@@ -217,6 +240,7 @@ button:hover {
     white-space: nowrap;
 }
 
+/* Statusanzeige für Spielverlauf oder Hinweise */
 #status-text {
     min-height: calc(var(--font-size-normal) * 1.5);
     margin-bottom: var(--padding-large);
@@ -226,6 +250,7 @@ button:hover {
     font-size: var(--font-size-large);
 }
 
+/* Anpassung für breite, niedrige Bildschirme */
 @media (orientation: landscape) and (max-height: 500px) {
     :root {
         --cell-size: min(15vh, 100px);
@@ -249,4 +274,6 @@ button:hover {
         margin: var(--padding-small) 0;
     }
 }
+
+/* Retro-Schriftart laden */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
